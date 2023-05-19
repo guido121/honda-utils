@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `alumnos`
 --
+CREATE DATABASE hondadb;
 
 CREATE TABLE `alumnos` (
   `matricula` varchar(10) NOT NULL,

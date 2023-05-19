@@ -30,16 +30,18 @@ class DestinatarioModel extends Model{
       }
   }
   public function getById($id){
-    $item = new ClienteStruct();
-    $query =  $this->db->connect()->prepare("SELECT * FROM cliente WHERE  cliente_id = :cliente_id");
+    $item = new DestinatarioStruct();
+    $query =  $this->db->connect()->prepare("SELECT * FROM destinatarios WHERE  destinatario_id = :destinatario_id");
     try{
-      $query->execute(['cliente_id' => $id]);
+      $query->execute(['destinatario_id' => $id]);
 
       while($row = $query->fetch()){
-        $item->cliente_id = $row['cliente_id'];
-        $item->razon_social = $row['razon_social'];
-        $item->codigo = $row['codigo'];
+        $item->destinatario_id = $row['destinatario_id'];
+        $item->nombres = $row['nombres'];
+        $item->apellidos = $row['apellidos'];
+        $item->correo = $row['correo'];
         $item->activo = $row['activo'];
+        $item->cliente_id = $row['cliente_id'];
       }
 
       return $item;

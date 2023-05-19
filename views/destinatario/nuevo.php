@@ -29,7 +29,10 @@
       </p>
       <p>
         <label for="nombre">Activo</label><br>
-        <input type="text" name="activo" id="" required>
+        <select name="activo" id="" required>
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
+        </select>
       </p>
       <p>
         <label for="cliente_id">Cliente</label><br>

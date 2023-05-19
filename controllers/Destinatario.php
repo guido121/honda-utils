@@ -24,25 +24,29 @@ class Destinatario extends Controller{
     $this->view->render('destinatario/nuevo');
   }
 
-  function verCliente($param = null){
-    $cliente_id= $param[0];
-    $cliente = $this->model->getById($cliente_id);
+  function verDestinatario($param = null){
+    $destinatario_id= $param[0];
+    $destinatario = $this->model->getById($destinatario_id);
     
     session_start();
-    $_SESSION['cliente_id'] = $cliente->cliente_id;
-    $this->view->cliente = $cliente;
+    $_SESSION['destinatario_id'] = $destinatario->destinatario_id;
+    $clienteModelObj = new ClienteModel();
+    $this->view->clientes = $clienteModelObj->get();
+    $this->view->destinatario = $destinatario;
     $this->view->mensaje = "";
-    $this->view->render('cliente/detalle');
+    $this->view->render('destinatario/detalle');
   }
 
-  function actualizarCliente(){
+  function actualizarDestinatario(){
     session_start();
-    $cliente_id = $_SESSION['cliente_id'];
-    $razon_social = $_POST['razon_social'];
-    $codigo = $_POST['codigo'];
+    $destinatario_id = $_SESSION['destinatario_id'];
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
+    $correo = $_POST['correo'];
     $activo = $_POST['activo'];
+    $cliente_id = $_POST['cliente_id'];
 
-    unset($_SESSION['id_verAlumno']);
+    unset($_SESSION['destinatario_id']);
 
     if($this->model->update(['cliente_id' => $cliente_id, 'razon_social' => $razon_social, 'codigo' => $codigo, 'activo' => $activo])){
       $cliente = new ClienteStruct();
