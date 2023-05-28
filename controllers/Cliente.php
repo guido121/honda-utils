@@ -28,7 +28,7 @@ class Cliente extends Controller{
     $cliente = $this->model->getById($cliente_id);
     
     session_start();
-    $_SESSION['cliente_id'] = $cliente->cliente_id;
+    $_SESSION['id_verCliente'] = $cliente->cliente_id;
     $this->view->cliente = $cliente;
     $this->view->mensaje = "";
     $this->view->render('cliente/detalle');
@@ -36,15 +36,16 @@ class Cliente extends Controller{
 
   function actualizarCliente(){
     session_start();
-    $cliente_id = $_SESSION['cliente_id'];
+    $cliente_id = $_SESSION['id_verCliente'];
     $razon_social = $_POST['razon_social'];
     $codigo = $_POST['codigo'];
     $activo = $_POST['activo'];
 
-    unset($_SESSION['id_verAlumno']);
+    unset($_SESSION['id_verCliente']);
 
     if($this->model->update(['cliente_id' => $cliente_id, 'razon_social' => $razon_social, 'codigo' => $codigo, 'activo' => $activo])){
       $cliente = new ClienteStruct();
+      $cliente->cliente_id = $cliente_id;
       $cliente->razon_social = $razon_social;
       $cliente->codigo = $codigo;
       $cliente->activo = $activo;

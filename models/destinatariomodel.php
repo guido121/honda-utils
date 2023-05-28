@@ -52,13 +52,15 @@ class DestinatarioModel extends Model{
   }
 
   public function update($item){
-    $query =  $this->db->connect()->prepare("UPDATE cliente SET razon_social = :razon_social, codigo = :codigo, activo = :activo WHERE cliente_id = :cliente_id");
+    $query =  $this->db->connect()->prepare("UPDATE destinatarios SET nombres = :nombres, apellidos = :apellidos, correo = :correo,  activo = :activo,  cliente_id = :cliente_id  WHERE destinatario_id = :destinatario_id");
     try{
       $query->execute([
-        'cliente_id'    => $item['cliente_id'],
-        'razon_social'  => $item['razon_social'],
-        'codigo'        => $item['codigo'],
-        'activo'        => $item['activo'],
+        'destinatario_id'   => $item['destinatario_id'],
+        'nombres'           => $item['nombres'],
+        'apellidos'         => $item['apellidos'],
+        'correo'            => $item['correo'],
+        'activo'            => $item['activo'],
+        'cliente_id'        => $item['cliente_id'],
       ]);
 
       return true;

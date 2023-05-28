@@ -40,39 +40,41 @@ class Destinatario extends Controller{
   function actualizarDestinatario(){
     session_start();
     $destinatario_id = $_SESSION['destinatario_id'];
-    $nombres = $_POST['nombres'];
-    $apellidos = $_POST['apellidos'];
-    $correo = $_POST['correo'];
-    $activo = $_POST['activo'];
+    $nombres    = $_POST['nombres'];
+    $apellidos  = $_POST['apellidos'];
+    $correo     = $_POST['correo'];
+    $activo     = $_POST['activo'];
     $cliente_id = $_POST['cliente_id'];
 
     unset($_SESSION['destinatario_id']);
 
-    if($this->model->update(['cliente_id' => $cliente_id, 'razon_social' => $razon_social, 'codigo' => $codigo, 'activo' => $activo])){
-      $cliente = new ClienteStruct();
-      $cliente->razon_social = $razon_social;
-      $cliente->codigo = $codigo;
-      $cliente->activo = $activo;
+    if($this->model->update(['destinatario_id' => $destinatario_id, 'nombres' => $nombres, 'apellidos' => $apellidos, 'correo' => $correo, 'activo' => $activo, 'cliente_id' => $cliente_id])){
+      $destinatario = new DestinatarioStruct();
+      $destinatario->destinatario_id    = $destinatario_id;
+      $destinatario->nombres            = $nombres;
+      $destinatario->apellidos          = $apellidos;
+      $destinatario->correo             = $correo;
+      $destinatario->activo             = $activo;
+      $destinatario->cliente_id         = $cliente_id;
 
-      $this->view->cliente = $cliente;
-      $this->view->mensaje = "Alumno actualizado correctamente";
+      $this->view->destinatario = $destinatario;
+      $this->view->mensaje = "Destinatario actualizado correctamente";
     }else{
-      $this->view->mensaje = "No se pudo actualizar el alumno";
+      $this->view->mensaje = "No se pudo actualizar el destinatario";
     }
-    $this->view->render("cliente/detalle");
+    $this->view->render("destinatario/detalle");
 
   }
 
-  function eliminarCliente($param = null){
-    $cliente_id = $param[0];
+  function eliminarDestinatario($param = null){
+    $destinatario_id = $param[0];
     
-    if($this->model->delete($cliente_id)){
-      $this->view->mensaje = "Cliente eliminado correctamente";
+    if($this->model->delete($destinatario_id)){
+      $this->view->mensaje = "Destinatario eliminado correctamente";
     }else{
-      $this->view->mensaje = "No se pudo eliminar el cliente";
+      $this->view->mensaje = "No se pudo eliminar el Destinatario";
     }
     $this->render();
-
 
   }
 

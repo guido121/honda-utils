@@ -16,6 +16,7 @@
       <!--<li><a href="echo constant("URL") ayuda">Ayuda</a></li>-->
       <li><a href="<?php echo constant("URL") ?>cliente">Clientes</a></li>
       <li><a href="<?php echo constant("URL") ?>destinatario">Destinatarios</a></li>
+      <li><a href="<?php echo constant("URL") ?>enviocorreo">Envío de correos</a></li>
     </ul>
   </div>
 </body>
