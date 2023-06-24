@@ -9,7 +9,7 @@ class DestinatarioModel extends Model{
       $items = [];
       try{
 
-        $query = $this->db->connect()->query("SELECT * FROM destinatarios");
+        $query = $this->db->connect()->query("SELECT a.destinatario_id,a.nombres,a.apellidos,a.correo,a.activo,a.cliente_id,b.razon_social FROM destinatarios a LEFT JOIN cliente b ON a.cliente_id = b.cliente_id");
 
         while($row =  $query->fetch()){
           $item = new DestinatarioStruct();
@@ -19,6 +19,7 @@ class DestinatarioModel extends Model{
           $item->correo   = $row['correo'];
           $item->activo   = $row['activo'];
           $item->cliente_id   = $row['cliente_id'];
+          $item->razon_social   = $row['razon_social'];
 
           array_push($items, $item);
         }
@@ -31,7 +32,7 @@ class DestinatarioModel extends Model{
   }
   public function getById($id){
     $item = new DestinatarioStruct();
-    $query =  $this->db->connect()->prepare("SELECT * FROM destinatarios WHERE  destinatario_id = :destinatario_id");
+    $query =  $this->db->connect()->prepare("SELECT a.destinatario_id,a.nombres,a.apellidos,a.correo,a.activo,a.cliente_id,b.razon_social FROM destinatarios a LEFT JOIN cliente b ON a.cliente_id = b.cliente_id WHERE  a.destinatario_id = :destinatario_id");
     try{
       $query->execute(['destinatario_id' => $id]);
 
@@ -71,7 +72,8 @@ class DestinatarioModel extends Model{
   }
 
   public function delete($id){
-    $query =  $this->db->connect()->prepare("DELETE from cliente WHERE cliente_id = :id");
+
+    $query =  $this->db->connect()->prepare("DELETE from destinatarios WHERE destinatario_id = :id");
     try{
       $query->execute([
         'id' => $id,

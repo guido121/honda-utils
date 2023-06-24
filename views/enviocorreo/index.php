@@ -8,10 +8,11 @@
 </head>
 <body>  
     <?php require "views/header.php"; ?>
-
   <div id="main">
     <h1 class="center">Envío correo</h1>
-    <div class="center"><?php echo $this->mensaje; ?></div>
+    <br>
+    <div class="center"><p style="color:green;font-weight:bold"><?php echo $this->mensaje; ?></p></div>
+
     <form action="<?php echo constant('URL'); ?>enviocorreo/enviarcorreosmasivo" method="POST" enctype="multipart/form-data">
       <br>
       <p>

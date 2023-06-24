@@ -1,5 +1,6 @@
 <?php
 include_once 'models/ClienteStruct.php';
+include_once 'models/ClienteDestinatarioStruct.php';
 class ClienteModel extends Model{
   public function __construct(){
     parent::__construct();
@@ -87,6 +88,55 @@ class ClienteModel extends Model{
     }catch(PDOException $e){
       //echo $e->getMessage();    
       return false;
+    }
+  }
+
+  public function get_clients_info_by_codes($parametros)
+  {
+    //$items = [];
+
+    $query = "SELECT A.cliente_id, A.razon_social,A.codigo,B.correo,CONCAT(B.nombres,' ',B.apellidos) AS name FROM cliente A INNER JOIN destinatarios B ON A.cliente_id = B.cliente_id WHERE A.activo = '1' AND B.activo = '1' AND codigo IN (";
+
+
+    // Construir la cadena de marcadores de posición (?)
+    $marcadores = implode(',', array_fill(0, count($parametros), '?'));
+
+    // Concatenar los marcadores de posición a la consulta
+    $query .= $marcadores . ")";
+
+    try{
+      // Preparar la consulta
+      $stmt = $this->db->connect()->prepare($query);
+
+      // Vincular los valores de los parámetros
+      foreach ($parametros as $index => $valor) {
+          $stmt->bindValue($index + 1, $valor);
+      }
+
+      // Ejecutar la consulta
+      $stmt->execute();
+
+      // Recuperar los resultados
+      $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      
+      // Mostrar los resultados
+      /*foreach ($resultados as $row) {
+
+          $item = new ClienteDestinatarioStruct();
+          $item->cliente_id = $row['cliente_id'];
+          $item->razon_social = $row['razon_social'];
+          $item->codigo = $row['codigo'];
+          $item->correo = $row['correo'];
+          $item->nombres = $row['nombres'];
+          $item->apellidos = $row['apellidos'];
+
+          $items[$row['codigo']] = $item;
+      }*/
+
+      return $resultados;
+    }catch(PDOException $e){
+      return [];
     }
   }
 }

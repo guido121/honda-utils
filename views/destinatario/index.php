@@ -39,8 +39,8 @@
           <td><?php echo $destinatario->nombres; ?></td>
           <td><?php echo $destinatario->apellidos; ?></td>
           <td><?php echo $destinatario->correo; ?></td>
-          <td><?php echo $destinatario->activo; ?></td>
-          <td><?php echo $destinatario->cliente_id; ?></td>
+          <td><?php echo ($destinatario->activo == 1 ? 'Activo' : 'Inactivo') ?></td>
+          <td><?php echo $destinatario->razon_social; ?></td>
           <td><a href="<?php echo constant('URL') . 'destinatario/verDestinatario/' . $destinatario->destinatario_id; ?>">Editar</a></td>
           <td><a href="<?php echo constant('URL') . 'destinatario/eliminarDestinatario/' . $destinatario->destinatario_id; ?>">Eliminar</a></td>
         </tr>

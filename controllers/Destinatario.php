@@ -56,8 +56,11 @@ class Destinatario extends Controller{
       $destinatario->correo             = $correo;
       $destinatario->activo             = $activo;
       $destinatario->cliente_id         = $cliente_id;
-
+      
+      $clienteModelObj = new ClienteModel();
+      $this->view->clientes = $clienteModelObj->get();
       $this->view->destinatario = $destinatario;
+      
       $this->view->mensaje = "Destinatario actualizado correctamente";
     }else{
       $this->view->mensaje = "No se pudo actualizar el destinatario";

@@ -10,4 +10,6 @@ class DestinatarioStruct{
   public $activo;
 
   public $cliente_id;
+
+  public $razon_social;
 }
