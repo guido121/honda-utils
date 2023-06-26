@@ -72,11 +72,21 @@ class EnvioCorreo extends Controller{
         $mensaje_correo = $this->enviar_correo(
           "Facturación BO con stock disponible - " . $row["razon_social"],
           $row["destinatarios"],
-          "<style>
-            .tb { border-collapse: collapse; }
+          "<html>
+          <head>
+          <style>
+            p { font: small/1.5 Arial,Helvetica,sans-serif; }
+            .tb { border-collapse: collapse; font: small/1.5 Arial,Helvetica,sans-serif; }
             .tb th, .tb td { padding: 5px; border: solid 1px #777; }
             .tb th { background-color: lightblue; }
+            pre {font: small/1.5 Arial,Helvetica,sans-serif; color: #4f4f4f}
+            .firmaNombre { font-weight:bold }
+            .firmatexto { float: left; }
+            .firmaimagen { float: left; margin: 0 15px; }
+            .subtextofirma { font-size: 92% }
           </style>
+          </head>
+          <body>
           <p>Estimado Concesionario</p>
             <p>Buenos d&iacute;as, a continuaci&oacute;n le adjuntamos el detalle de los pedidos Back Orders que ingresaron en nuestro sistema SAP(Dealer Portal) y que ya se encuentran disponibles, por tal solicitamos que puedan realizar el pago cuanto antes. El total de sus BO&rsquo;s es <span>" . $row["subtotal"] . " </span> USD.</p>
             <p>As&iacute; mismo, adjuntamos las cuentas de Honda del Per&uacute; para procedan con el pago efectivo. Si ya realizaron el pago, favor omitir el correo.</p>
@@ -149,23 +159,32 @@ class EnvioCorreo extends Controller{
             </tr>
             </tbody>
             </table>
+            <br>
             <p>Gracias</p>
+            <br>
             <p>Saludos Cordiales</p>
-            <p>Cordialmente,</p>
-            <p>&nbsp;</p>
-            <pre>Daniela Chavez  |  Asistente de Exportaciones
+            <br>
+            <div class='firma'> 
+            <div class='firmatexto'>
+            <pre><span class='firmaNombre'>Daniela Chavez</span>
+<span class='subtextofirma'>Asistente de Exportaciones
+Motorcycle Division |  Honda del Per&uacute; S. A.
+Phone: (511) 418-0418
+Cell phone: (051) 961 564 390
+Address: Av. Elmer Faucett 3737 Callao - Per&uacute;
+E-mail: : <a href='mailto:daniela_chavez@honda.com.pe'>Daniela_Chavez@honda.com.pe</a>
+</span>
+<a href='https://www.honda.com.pe'>www.honda.com.pe</a>
 
-            Motorcycle Division       |  Honda del Per&uacute; S. A.
-
-            Phone: (511) 418-0418
-
-            Cell phone: (051) 961 564 390
-
-            Address: Av. Elmer Faucett 3737 Callao - Per&uacute;
-
-            E-mail: : <a href='mailto:daniela_chavez@honda.com.pe'>Daniela_Chavez@honda.com.pe</a>  |  <a href='https://www.honda.com.pe'>www.honda.com.pe</a>
-
-            </pre>",
+</pre>
+            </div>
+            <div class='firmaimagen'>
+              <img src='https://i.postimg.cc/XYz2PZyc/hondaperu.jpg'>
+            </div>
+</div>
+</body>
+</html>
+",
           "Texto alternativo",
           [
             ["path" => $row["path"], "name" => $row["codigo"] .".xlsx"]
@@ -387,9 +406,9 @@ class EnvioCorreo extends Controller{
 
           $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
 
-          $email = 'luis.palacinr@gmail.com';
+          $email = '';
           $mail->Username   = $email;                           //SMTP username
-          $mail->Password   = 'ssofvbhljzhfdewc';                               //SMTP password
+          $mail->Password   = '';                               //SMTP password
           
           
 
